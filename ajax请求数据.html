@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ajax获取数据</title>
+</head>
+<body>
+        <button>点击我</button>
+        <textarea id="test-response-text"></textarea>
+    <script src="js/jquery.min.js"></script>
+    <script>
+            // JQ方法。get   post:
+
+            // $.ajax({
+            //     type: 'GET',  //换成post一样可以获取
+            //     async: false,
+            //     url: 'http://149.28.207.164:8001/api/getFirstData',
+            //     success: function(data){
+            //         console.log(data);
+            //     },
+            //     error: function(){
+            //         alert('获取数据失败');
+            //     }
+            // });
+
+        
+            // 原生js方法：
+            var request = new XMLHttpRequest(); // 新建XMLHttpRequest对象
+            request.onreadystatechange = function () { // 状态发生变化时，函数被回调
+                if (request.readyState === 4) { // 成功完成
+                    // 判断响应结果:
+                    if (request.status === 200) {
+                        // 成功，通过responseText拿到响应的文本:
+                        // return success(request.responseText);
+                        console.log(request.response);
+                    } else {
+                        // 失败，根据响应码判断失败原因:
+                        return fail(request.status);
+                    }
+                } else {
+                    // HTTP请求还在继续...
+                }
+            }
+            // 发送请求:
+            request.open('GET', 'http://149.28.207.164:8001/api/getFirstData');
+            request.responseType = 'json';
+            request.setRequestHeader("Content-type","application/json; charset=utf-8");
+            request.send();
+
+            // alert('请求已发送，请等待响应...');
+            
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ajax渲染列表</title>
+</head>
+<body>
+    <script src="js/jquery.min.js"></script>
+    <script>
+        // $.get('http://149.28.207.164:8001/api/getQesList?length=10', function(data){
+        //     console.log(data);
+        // });
+
+        $.get('http://149.28.207.164:8001/api/getQesList?length=2', function(data1){
+            console.log(data1);
+            var dataArr = data1.data.QList;
+            console.log(dataArr);
+            $('body').append("<span style='font-size: 20px; font-weight: 600;'>"+dataArr[0].cateName+"</span>");
+
+            for( i in dataArr){
+                console.log(dataArr[i]);
+                var A_data = dataArr[i];
+                $('body').append("</br><span>"+Number(Number(i)+1)+".</span>"+A_data.questionContent+
+                    "</br></br><span style='margin-left: 40px; margin-right: 10px;'>"+A_data.optionList[0].selectValue+"</span>"+A_data.optionList[0].optionContent+
+                    "<span style='margin-left: 40px; margin-right: 10px;'>"+A_data.optionList[1].selectValue+"</span>"+A_data.optionList[1].optionContent+
+                    "<span style='margin-left: 40px; margin-right: 10px;'>"+A_data.optionList[2].selectValue+"</span>"+A_data.optionList[2].optionContent+
+                    "<span style='margin-left: 40px; margin-right: 10px;'>"+A_data.optionList[3].selectValue+"</span>"+A_data.optionList[3].optionContent+
+                    "</br></br></br><span class='check' style='color: red; margin-left:30px;'>解析:</span></br></br>"+
+                    "<div style='margin-left: 30px;'>答案："+A_data.answers[0]+
+                    "</br>"+A_data.discuss+'</br>'+A_data.analyse+
+                    "<div style='margin-left: 20px;'></br>"+A_data.method+"</div>"+
+                    "</div>"
+                );
+            }
+
+        });
+
+        $.get('http://149.28.207.164:8001/api/getQesList?length=200', function(data1){
+            console.log(data1);
+            var dataArr = data1.data.QList;
+            console.log(dataArr);
+            $('body').append("<span style='font-size: 20px; font-weight: 600;'>"+dataArr[0].cateName+"</span>");
+
+            for( i in dataArr){
+                console.log(dataArr[i]);
+                var A_data = dataArr[i];
+                $('body').append("</br><span>"+Number(Number(i)+1)+".</span>"+A_data.questionContent+
+                    "</br></br><span style='margin-left: 40px; margin-right: 10px;'>"+A_data.optionList[0].selectValue+"</span>"+A_data.optionList[0].optionContent+
+                    "<span style='margin-left: 40px; margin-right: 10px;'>"+A_data.optionList[1].selectValue+"</span>"+A_data.optionList[1].optionContent+
+                    "<span style='margin-left: 40px; margin-right: 10px;'>"+A_data.optionList[2].selectValue+"</span>"+A_data.optionList[2].optionContent+
+                    "<span style='margin-left: 40px; margin-right: 10px;'>"+A_data.optionList[3].selectValue+"</span>"+A_data.optionList[3].optionContent+
+                    "</br></br></br><span class='check' style='color: red; margin-left:30px;'>解析:</span></br></br>"+
+                    "<div style='margin-left: 30px;'>答案："+A_data.answers[0]+
+                    "</br>"+A_data.discuss+'</br>'+A_data.analyse+
+                    "<div style='margin-left: 20px;'></br>"+A_data.method+"</div>"+
+                    "</div>"
+                );
+            }
+
+        });
+    </script>
+</body>
+</html>

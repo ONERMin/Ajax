@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js数组方法</title>
+</head>
+<body>
+    <script>
+    //1. for each
+        const colors = ['red', 'green', 'blue'];
+        //不使用foreach   遍历数组
+        for(i in colors){
+            console.log(colors[i]);
+        }
+        //或者另外一种
+        for (var i=0; i < colors.length; i++){
+            console.log(colors[i]);
+        }
+        //使用foreach方法  原数组中的元素被遍历，color为数组每个变量
+        colors.forEach(color => {
+            console.log(color);
+        });
+
+        //更实际的应用
+            const numbers = [1, 2, 3, 4];
+            let sum = 0;
+             numbers.forEach(number => {
+                 sum += number;
+             });
+
+             console.log(sum);
+
+    
+    </script>
+    <script>
+
+   //2. map
+        const numbers2 = [1,2,3,4]; //将原数组中各个元素x2输出
+        //不使用 map 实现：
+
+        let doublenumbers2 = []; //创建一个空数组来存储数据，为了不改变原数组
+        for(i in numbers2){
+            doublenumbers2.push(numbers2[i]*2); //doublenumbers2[i].push(numbers2[i]*2);报错是由于doublenumbers2[i]未定义
+        }
+        console.log(doublenumbers2);
+
+        //使用map实现： 原数组的元素被遍历传入map函数执行，执行后结果背返回并存入新数组
+        let doubleMap = numbers2.map(number => number*2);
+        console.log(doubleMap);
+        
+        //map可以用于汇总数组内各个元素的属性值，并输出相关信息，例子：
+        const cars = [
+            {model: 'Buick', price: 'cheap'},
+            {model: 'Camaro', price: 'expensive'}
+        ];
+
+        const model = cars.map(car => {
+            return car.model;
+        });
+        console.log(model); //["Buick", "Camaro"]
+
+        const price = cars.map(car => {
+            return car.price;
+        });
+        console.log(price); //["cheap", "expensive"]
+
+        //渲染数据列表：
+        //可以在浏览器控制台输入以下代码查看：
+        // const cars2 = [
+        //     {model: 'Buick', price: 'cheap'},
+        //     {model: 'Camaro', price: 'expensive'}
+        // ];
+
+        // const carList = document.createElement('ul');
+
+        // const aboutCars = cars2.map(car => {
+        //     return '<li>${cars2.model} is ${cars2.price}</li>';
+        // });
+
+        // aboutCars.forEach(car => {
+        //     carList.innerHTML += car;
+        // });
+
+        // document.body.innerHTML = '';
+        // document.body.appendChild(carList);
+
+    </script>
+
+    <script>
+    //3. filter
+        const products = [
+                { name: 'cucumber', type: 'vegetable', quantity: 10, price: 1 },
+                { name: 'banana', type: 'fruit', quantity: 8, price: 15 },
+                { name: 'cucumber', type: 'vegetable', quantity: 25, price: 12 },
+                { name: 'orange', type: 'fruit', quantity: 30, price: 8 },
+            ];
+        // 不使用filter实现
+        // 筛选出类型为水果的产品
+
+        let filteredProducts = [];
+        for(var i = 0; i < products.length; i++){
+        if(products[i].type === 'fruit'){
+            filteredProducts.push(products[i])
+        }
+        }
+        console.table(filteredProducts);
+
+        // 使用filter实现
+        // 筛选出类型为水果的产品
+
+        const fruit = products.filter(product => product.type === 'fruit');
+        console.table(fruit);
+
+        // 筛选出类型为蔬菜, 且数量大于0, 且价格小于10的产品
+
+        const veg = products.filter(product => product.type === 'vegetable' && product.quantity > 0 && product.price < 10);
+        console.table(veg);
+        //console.table将数组以表格的形式显示在控制台中, 可读性更强.
+
+
+        //筛选出指定post的comment内容:
+        const post = { id: 4, title: 'New Post'};
+
+        const comments = [
+        { postId: 4, content: 'Awesome Post'},
+        { postId: 3, content: 'It was ok'},
+        { postId: 4, content: 'neat'}
+        ];
+
+        function commentsForPost(post, comments){
+        return comments.filter(comment => comment.postId === post.id);
+        }
+
+        const filteredComments = commentsForPost(post, comments);
+        console.table(filteredComments);
+    </script>
+
+    <script>
+    //4. sort
+        //## sort
+
+       
+        // function compareFunction(a, b){
+        // // return -1, a出现在b之前
+        // // return 1,  a出现在b之后
+        // // return 0, 顺序不变
+        // }
+        // arr.sort(compareFunction);
+
+            var numbers4 = [4, 20, 5, 1, 3];
+                numbers4.sort(function(a, b) {
+                return a - b;
+            });
+            console.log(numbers4); // [1, 3, 4, 5, 20]
+
+            //如果没有comparisonFunction, 先将数列中的内容转化成字符串再根据Unicode顺序排序.
+            var scores = [1, 10, 21, 2];
+            scores.sort();
+            console.log(scores); // [1, 10, 2, 21]
+            // 10在 2之前,
+            // 因为在Unicode码中'10'在'2'之前
+
+
+
+            const inventors = [
+                { first: 'Albert', last: 'Einstein', year: 1879, passed: 1955 },
+                { first: 'Isaac', last: 'Newton', year: 1643, passed: 1727 },
+                { first: 'Galileo', last: 'Galilei', year: 1564, passed: 1642 },
+                { first: 'Marie', last: 'Curie', year: 1867, passed: 1934 },
+                { first: 'Johannes', last: 'Kepler', year: 1571, passed: 1630 },
+                { first: 'Nicolaus', last: 'Copernicus', year: 1473, passed: 1543 }
+            ];
+
+            // 生辰从早到晚
+
+            inventors.sort((a, b) => a.year - b.year ? 1 : -1);
+
+            console.table(inventors);
+
+            // 活得长的发明家排在后
+
+            inventors.sort((a, b) => {
+                return (a.passed - a.year) - (b.passed - b.year);
+            });
+
+            console.table(inventors);
+    </script>
+</body>
+</html>
